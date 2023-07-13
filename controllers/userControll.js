@@ -1,6 +1,9 @@
 const userModel = require("../models/userModel");
+
+//bcrypt library for password encryption and decryption
 const bcrypt = require("bcrypt");
-//create user register user
+
+//create user || register user
 exports.registerController = async (req, res) => {
     try {
         const { username, email, password, blogs } = req.body;
@@ -59,7 +62,7 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-//login
+//login user
 exports.loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -77,7 +80,7 @@ exports.loginController = async (req, res) => {
                 message: "email is not registerd",
             });
         }
-        //password
+        //password validation
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).send({

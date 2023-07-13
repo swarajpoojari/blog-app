@@ -27,11 +27,12 @@ app.get('/', (req, res) => {
     });
 });
 
+//different user routes
 app.use('/user', userRoutes);
+//different blog routes
 app.use('/blog', blogRoutes);
 
 // port establishing
-// const port = process.e
 app.listen(8080, () => {
     console.log('Server running at port 8080'.bgBlue.white)
 })

@@ -2,6 +2,7 @@ const blogModel = require('../models/blogModel')
 const userModel = require('../models/userModel')
 const mongoose = require('mongoose');
 
+//get all blogs
 module.exports.getAllBlogsController = async (req, res) => {
     try {
         const blogs = await blogModel.find({}).populate("user");
@@ -26,6 +27,8 @@ module.exports.getAllBlogsController = async (req, res) => {
         })
     }
 }
+
+//create blogs
 module.exports.createBlogsController = async (req, res) => {
     try {
         const { title, description, image, user } = req.body;
@@ -44,6 +47,7 @@ module.exports.createBlogsController = async (req, res) => {
             })
         }
         const newBlog = new blogModel({ title, description, image, user });
+        //creating mongoose session
         const session = await mongoose.startSession();
         session.startTransaction();
         await newBlog.save({ session });
@@ -66,10 +70,11 @@ module.exports.createBlogsController = async (req, res) => {
     }
 };
 
+
+//updatin blog
 module.exports.updateBlogsController = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, image } = req.body;
         const blog = await blogModel.findByIdAndUpdate(id, { ...req.body }, { new: true })
         return res.status(200).send({
             succes: true,
@@ -86,6 +91,7 @@ module.exports.updateBlogsController = async (req, res) => {
     }
 };
 
+//get blog by user id
 module.exports.getBlogByIdController = async (req, res) => {
     try {
         const { id } = req.params;
@@ -111,6 +117,7 @@ module.exports.getBlogByIdController = async (req, res) => {
     }
 };
 
+//delete blog
 module.exports.deleteBlogsController = async (req, res) => {
     try {
         const blog = await blogModel.findByIdAndDelete(req.params.id)
@@ -135,7 +142,7 @@ module.exports.deleteBlogsController = async (req, res) => {
     }
 }
 
-//GET USER BLOG
+//get user blog
 exports.userBlogControlller = async (req, res) => {
     try {
         const userBlog = await userModel.findById(req.params.id).populate("blogs");

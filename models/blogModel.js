@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // const User = require('./userModel').schema;
 
+//creating schema for blog collection in mongoDB database
 const blogSchema = new mongoose.Schema({
     titile: {
         type: String,
@@ -21,6 +22,8 @@ const blogSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
+//creating blog model or collection 
 const blogModel = mongoose.model('Blog', blogSchema);
 
+//exporting blog model
 module.exports = blogModel;

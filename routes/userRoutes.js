@@ -1,4 +1,6 @@
 const express = require("express");
+
+//requiring user controllers or functions to execute on different routes
 const {
     getAllUsers,
     registerController,
@@ -17,4 +19,5 @@ router.post("/register", registerController);
 //LOGIN || POST
 router.post("/login", loginController);
 
+//exporting router
 module.exports = router;
